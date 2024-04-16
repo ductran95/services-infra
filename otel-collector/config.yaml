@@ -1,0 +1,158 @@
+receivers:
+  hostmetrics:
+    root_path: /hostfs
+    collection_interval: 10s
+    scrapers:
+      cpu:
+      disk: 
+      filesystem:
+        exclude_mount_points:
+          mount_points: ["/boot/efi", "/mnt/media", "/snap/*", "/run/*"]
+          match_type: regexp
+      load: 
+      memory: 
+      network: 
+      paging:
+      processes:
+  docker_stats:
+    endpoint: unix:///var/run/docker.sock
+  otlp:
+    protocols:
+      grpc:
+        endpoint: :4317
+        auth:
+          authenticator: basicauth/server
+        # tls:
+        #   cert_file: /certs/server.crt
+        #   key_file: /certs/server.key
+      http:
+        endpoint: :4318
+        auth:
+          authenticator: basicauth/server
+        tls:
+          cert_file: /certs/server.crt
+          key_file: /certs/server.key
+
+processors:
+  batch:
+
+  resourcedetection:
+    detectors: [env, system]
+    attribute_source: resource
+    from_attribute: service.instance.id
+    table:
+    # Shopee Management
+    - value: shopee-management-api-development
+      exporters:
+      - otlp/shopee-management-tempo
+      - loki/shopee-management
+      - prometheusremotewrite/shopee-management
+      - otlp/shopee-management-uptrace
+      - otlphttp/openobserve
+    - value: shopee-management-api-staging
+      exporters:
+      - otlp/shopee-management-tempo
+      - loki/shopee-management
+      - prometheusremotewrite/shopee-management
+      - otlp/shopee-management-uptrace
+      - otlp/shopee-management-uptrace-cloud
+      - otlphttp/openobserve
+    - value: shopee-management-api-production
+      exporters:
+      - otlp/shopee-management-tempo
+      - loki/shopee-management
+      - prometheusremotewrite/shopee-management
+      - otlp/shopee-management-uptrace
+      - otlp/shopee-management-uptrace-cloud
+      - otlphttp/openobserve
+    - value: shopee-management-function-development
+      exporters:
+      - otlp/shopee-management-tempo
+      - loki/shopee-management
+      - prometheusremotewrite/shopee-management
+      - otlp/shopee-management-uptrace
+      - otlphttp/openobserve
+    - value: shopee-management-function-staging
+      exporters:
+      - otlp/shopee-management-tempo
+      - loki/shopee-management
+      - prometheusremotewrite/shopee-management
+      - otlp/shopee-management-uptrace
+      - otlp/shopee-management-uptrace-cloud
+      - otlphttp/openobserve
+    - value: shopee-management-function-production
+      exporters:
+      - otlp/shopee-management-tempo
+      - loki/shopee-management
+      - prometheusremotewrite/shopee-management
+      - otlp/shopee-management-uptrace
+      - otlp/shopee-management-uptrace-cloud
+      - otlphttp/openobserve
+
+exporters:
+  logging:
+    verbosity: detailed
+
+  sentry:
+    dsn: https://key@host/path/42
+    environment: prod
+    insecure_skip_verify: true
+
+extensions:
+  health_check:
+
+  pprof:
+    endpoint: :1888
+
+  zpages:
+    endpoint: :55679
+
+  basicauth/server:
+    htpasswd:
+      inline: |
+        test:abcde12345-
+service:
+  extensions: [basicauth/server, pprof, zpages, health_check]
+
+  pipelines:
+    traces:
+      receivers:
+        - otlp
+      processors:
+        - batch
+        - routing
+      exporters:
+        - sentry
+
+    metrics:
+      receivers:
+        - otlp
+      processors:
+        - batch
+        - routing
+      exporters:
+        # - logging
+        - sentry
+
+    metrics/host:
+      receivers:
+        - hostmetrics
+        - docker_stats
+      processors:
+        - batch
+        - resourcedetection
+      exporters:
+        - sentry
+
+    logs:
+      receivers:
+        - otlp
+      processors:
+        - batch
+        - routing
+      exporters:
+        - sentry
+
+  # telemetry:
+  #   logs:
+  #     level: "debug"
