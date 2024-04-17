@@ -27,7 +27,7 @@ http:
     https-redirect:
       redirectscheme:
         scheme: https
-    test-auth:
+    admin-auth:
       basicAuth:
         users:
           - "admin:$2y$05$lyY5mTijBUzGbiicVMWDWOmqEZej2GAE2cf481RQqDhVBMDm2ZwKq"
