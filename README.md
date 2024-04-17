@@ -20,8 +20,8 @@ cd debian
 
 ## 2. Init Docker Swarm
 ```bash
-ifconfig
-docker swarm init --advertise-addr <MANAGER-IP>
+ip addr
+sudo docker swarm init --advertise-addr <MANAGER-IP>
 ```
 
 ## 3. Setup Docker Swarm nodes
@@ -30,9 +30,7 @@ docker swarm join-token worker
 
 To add a worker to this swarm, run the following command:
 
-docker swarm join \
---token SWMTKN-1-49nj1cmql0jkz5s954yi3oex3nedyz0fb0xx14ie39trti4wxv-8vxv8rssmk743ojnwacrr2e7c \
-192.168.99.100:2377
+sudo docker swarm join --token SWMTKN-1-4vfolag46t708m6se0hs53q04eq80b37e6l0jk73x912qaia6l-cqq3c9gscfr16j5ui0q8o90bs 10.0.132.235:2377
 ```
 
 ## 4. Init infra
