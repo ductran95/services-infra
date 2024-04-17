@@ -19,11 +19,7 @@ services:
         # Enable Traefik for this service, to make it available in the public network
         - traefik.enable=true
         # Use the traefik-public network (declared below)
-        - traefik.docker.network=traefik-public
-        # Use the custom label "traefik.constraint-label=traefik-public"
-        # This public Traefik will only use services with this label
-        # That way you can add other internal Traefik instances per stack if needed
-        - traefik.constraint-label=traefik-public
+        - traefik.docker.network=traefik_network
         # admin-auth middleware with HTTP Basic auth
         # Using the environment variables USERNAME and HASHED_PASSWORD
         - traefik.http.middlewares.admin-auth.basicauth.users=${USERNAME}:${HASHED_PASSWORD}
@@ -77,10 +73,6 @@ services:
       - --log
       # Enable the Dashboard and API
       - --api
-    networks:
-      # Use the public network created to be shared between Traefik and
-      # any other service that needs to be publicly available with HTTPS
-      - traefik-public
     environment:
       - DOMAIN=traefik.tvduc95.ovh
       - EMAIL=tvduc95@gmail.com
@@ -88,7 +80,11 @@ services:
       # use 'echo $(htpasswd -nB user) | sed -e s/\\$/\\$\\$/g' to generate password
       # default password: 12345678
       - HASHED_PASSWORD=$$2y$$05$$CB1vZ3Ih3ic7HEzPZgej.edKZPBLx3/cRUEj1W64bzK67nzZSND7u
-
+    networks:
+      # Use the public network created to be shared between Traefik and
+      # any other service that needs to be publicly available with HTTPS
+      - traefik_network
+    
 volumes:
   # Create a volume to store the certificates, there is a constraint to make sure
   # Traefik is always deployed to the same Docker node with the same volume containing
@@ -96,6 +92,6 @@ volumes:
   traefik_public_certificates:
 
 networks:
-  traefik-public:
+  traefik_network:
     driver: overlay
     attachable: true
