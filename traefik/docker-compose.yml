@@ -21,7 +21,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - traefik_public_certificates:/certificates
       - /services-infra/traefik/traefik.yml:/etc/traefik/traefik.yml
-      - /services-infra/traefik/dynamic_config.yml:/etc/traefik/dynamic_config
+      - /services-infra/traefik/dynamic_config.yml:/etc/traefik/dynamic_config.yml
     networks:
       - traefik_network
     
