@@ -22,6 +22,9 @@ services:
       - /services-infra/traefik/dynamic_config.yml:/etc/traefik/dynamic_config.yml
     networks:
       - traefik_network
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
     
 volumes:
   traefik_public_certificates:
