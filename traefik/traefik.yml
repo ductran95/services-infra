@@ -1,0 +1,55 @@
+################################################################
+# Global configuration
+################################################################
+global:
+  checkNewVersion: true
+  sendAnonymousUsage: false
+
+################################################################
+# EntryPoints configuration
+################################################################
+
+entryPoints:
+  http:
+    address: :80
+
+  https:
+    address: :443
+
+################################################################
+# Traefik logs configuration
+################################################################
+
+log:
+accessLog:
+
+################################################################
+# API and dashboard configuration
+################################################################
+
+api:
+
+################################################################
+# Docker configuration backend
+################################################################
+
+providers:
+  # Enable Docker configuration backend
+  docker:
+    exposedByDefault: false
+    swarmMode: true
+    defaultRule: "HOST(`services.tvduc95.ovh`)) && Path(`/{{ normalize .Name }}`)"
+
+  file:
+    filename: /etc/traefik/dynamic_config.yml
+
+################################################################
+# Certificate configuration
+################################################################
+
+certificatesResolvers:
+  le:
+    acme:
+      email: tvduc95@gmail.com
+      storage: /certificates/acme.json
+      tlsChallenge: {}

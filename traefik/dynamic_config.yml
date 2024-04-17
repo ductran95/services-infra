@@ -1,0 +1,33 @@
+http:
+
+################################################################
+# Routers configuration
+################################################################
+
+  routers:
+    traefik-public-http:
+      entrypoints: http
+      rule: Host(`traefik.tvduc95.ovh`)
+      middlewares: 
+        - https-redirect
+    traefik-public-https:
+      entrypoints: https
+      rule: Host(`traefik.tvduc95.ovh`)
+      service: api@internal
+      middlewares: 
+        - admin-auth
+      tls:
+        certResolver: le
+
+################################################################
+# Middlewares configuration
+################################################################
+
+  middlewares:
+    https-redirect:
+      redirectscheme:
+        scheme: https
+    test-auth:
+      basicAuth:
+        users:
+          - "admin:$2y$05$lyY5mTijBUzGbiicVMWDWOmqEZej2GAE2cf481RQqDhVBMDm2ZwKq"
