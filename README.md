@@ -19,10 +19,12 @@ cd debian
 ./install.sh
 ```
 
+- Reboot
+
 ## 2. Init Docker Swarm
 ```bash
 ip addr
-sudo docker swarm init --advertise-addr <MANAGER-IP>
+docker swarm init --advertise-addr <MANAGER-IP>
 ```
 
 ## 3. Setup Docker Swarm nodes
@@ -31,7 +33,7 @@ docker swarm join-token worker
 
 To add a worker to this swarm, run the following command:
 
-sudo docker swarm join --token SWMTKN-1-4vfolag46t708m6se0hs53q04eq80b37e6l0jk73x912qaia6l-cqq3c9gscfr16j5ui0q8o90bs 10.0.132.235:2377
+docker swarm join --token SWMTKN-1-4vfolag46t708m6se0hs53q04eq80b37e6l0jk73x912qaia6l-cqq3c9gscfr16j5ui0q8o90bs 10.0.132.235:2377
 ```
 
 ## 4. Init infra
@@ -48,7 +50,7 @@ docker stack deploy --compose-file docker-compose.yml reverse-proxy
 ```bash
 cd /services-infra
 cd portainer
-docker stack deploy --compose-file docker-compose.yml reverse-proxy
+docker stack deploy --compose-file docker-compose.yml portainer
 ```
 
 - Install Sentry:
