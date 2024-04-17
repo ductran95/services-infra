@@ -2,9 +2,7 @@
 set -x
 
 sudo apt update
-sudo apt install -y ca-certificates curl
-sudo apt install -y wget systemctl
-sudo apt install -y htop
+sudo apt install -y ca-certificates curl wget htop
 
 # PATH
 echo "export PATH=/usr/sbin:$PATH" | sudo tee -a $HOME/.profile

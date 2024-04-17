@@ -11,7 +11,8 @@ sudo apt update
 sudo apt upgrade -y
 sudo apt install -y git
 cd /
-git clone https://github.com/ductran95/services-infra
+sudo git clone https://github.com/ductran95/services-infra
+sudo chmod -R 777 /services-infra
 cd services-infra
 cd debian
 ./install.sh
