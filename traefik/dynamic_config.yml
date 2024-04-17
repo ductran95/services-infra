@@ -8,6 +8,7 @@ http:
     traefik-public-http:
       entrypoints: http
       rule: Host(`traefik.tvduc95.ovh`)
+      service: api@internal
       middlewares: 
         - https-redirect
     traefik-public-https:
