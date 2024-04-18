@@ -22,4 +22,4 @@ RUN apt-get install -y curl
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "TestApi.dll"]
-HEALTHCHECK --interval=30s --timeout=3s CMD 'curl -f http://localhost:8080/ping' || exit 1
+HEALTHCHECK --interval=30s --timeout=3s --start-period=1s --start-interval=2s --retries=5 CMD curl -f http://localhost:8080/ping || exit 1
