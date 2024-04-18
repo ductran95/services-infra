@@ -56,8 +56,6 @@ projects:
     group_by_env: false
     # Group funcs spans by service.name attribute.
     group_funcs_by_service: false
-    # Enable prom_compat if you want to use the project as a Prometheus datasource in Grafana.
-    prom_compat: true
 
   - id: 2
     name: Docker Swarm
@@ -73,8 +71,6 @@ projects:
     group_by_env: true
     # Group funcs spans by service.name attribute.
     group_funcs_by_service: true
-    # Enable prom_compat if you want to use the project as a Prometheus datasource in Grafana.
-    prom_compat: true
 
   - id: 3
     name: Traefik
@@ -90,8 +86,6 @@ projects:
     group_by_env: true
     # Group funcs spans by service.name attribute.
     group_funcs_by_service: true
-    # Enable prom_compat if you want to use the project as a Prometheus datasource in Grafana.
-    prom_compat: true
 
     - id: 4
     name: Test API
@@ -107,8 +101,6 @@ projects:
     group_by_env: true
     # Group funcs spans by service.name attribute.
     group_funcs_by_service: true
-    # Enable prom_compat if you want to use the project as a Prometheus datasource in Grafana.
-    prom_compat: true
 
 ##
 ## Create metrics from spans and events.
