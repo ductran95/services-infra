@@ -32,7 +32,7 @@ docker swarm join-token worker
 
 To add a worker to this swarm, run the following command:
 
-docker swarm join --token SWMTKN-1-4vfolag46t708m6se0hs53q04eq80b37e6l0jk73x912qaia6l-cqq3c9gscfr16j5ui0q8o90bs 10.0.132.235:2377
+docker swarm join --token SWMTKN-1-4v9ak3bbqd3z9tbd4lkagte5n56iwz5wnxpk3agqqg2uj9fn1j-3pmq17fcgxu4p3by6sa72quft 10.0.2.95:2377
 ```
 
 ## 4. Init infra
