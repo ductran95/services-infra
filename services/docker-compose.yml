@@ -9,9 +9,11 @@ services:
       - public
       - default
     deploy:
-      mode: global
+      mode: replicated
+      replicas: 2
       placement:
-        constraints: [node.role == worker]
+        constraints:
+          - node.role == manager
       labels:
         - traefik.enable=true
         - traefik.docker.lbswarm=true
