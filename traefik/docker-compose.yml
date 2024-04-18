@@ -31,5 +31,5 @@ volumes:
   public_certificates:
 
 networks:
-  traefik_network:
+  public:
     external: true
