@@ -36,7 +36,7 @@ sudo nano /etc/docker/daemon.json
 
 ```bash
 ip addr
-docker swarm init --advertise-addr <MANAGER-IP>
+docker swarm init --advertise-addr 10.0.6.252
 ```
 
 ## 3. Setup Docker Swarm nodes
@@ -45,7 +45,7 @@ docker swarm join-token worker
 
 To add a worker to this swarm, run the following command:
 
-docker swarm join --token SWMTKN-1-4v9ak3bbqd3z9tbd4lkagte5n56iwz5wnxpk3agqqg2uj9fn1j-3pmq17fcgxu4p3by6sa72quft 10.0.2.95:2377
+docker swarm join --token SWMTKN-1-478duk4vmp88w2jtp068kacrk10455zsuir9yyhfv6p92wnk7y-b3iyuovx0w1a7tdfm5g8p7sdb 10.0.6.252:2377
 ```
 
 ## 4. Init infra
