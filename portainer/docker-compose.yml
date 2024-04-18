@@ -31,12 +31,12 @@ services:
         constraints: [node.role == manager]
       labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.portainer.rule=PathPrefix(`/portainer/`)"
+        - "traefik.http.routers.portainer.rule=Host(`portainer.services.tvduc95.ovh`)"
         - "traefik.http.routers.portainer.entrypoints=https"
         - "traefik.http.routers.portainer.service=portainer"
         - "traefik.http.services.portainer.loadbalancer.server.port=9000"
         # Edge
-        - "traefik.http.routers.portaineredge.rule=PathPrefix(`/portaineredge/`)"
+        - "traefik.http.routers.portaineredge.rule=Host(`portaineredge.services.tvduc95.ovh`)"
         - "traefik.http.routers.portaineredge.entrypoints=https"
         - "traefik.http.routers.portaineredge.service=portaineredge"
         - "traefik.http.services.portaineredge.loadbalancer.server.port=8000"
