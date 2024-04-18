@@ -37,7 +37,7 @@ exporters:
     endpoint: uptrace.service.tvduc95.ovh:14317
     tls:
       insecure: true
-    headers: { 'uptrace-dsn': 'http://srNWDSH8FG3Gur4hb4eU@localhost:14317/2' }
+    headers: { 'uptrace-dsn': 'http://srNWDSH8FG3Gur4hb4eU@uptrace.service.tvduc95.ovh:14317/2' }
 
   otlp/uptrace:
     endpoint: uptrace.service.tvduc95.ovh:14317
