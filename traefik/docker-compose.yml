@@ -13,7 +13,6 @@ services:
           - node.role == manager
     labels:
         - traefik.enable=true
-        - traefik.docker.network=public
         # - traefik.docker.lbswarm=true
         - traefik.http.services.traefik-public.loadbalancer.server.port=8080
     volumes:
@@ -23,9 +22,9 @@ services:
       - /services-infra/traefik/dynamic_config.yml:/etc/traefik/dynamic_config.yml
     networks:
       - public
-    # dns:
-    #   - 1.1.1.1
-    #   - 8.8.8.8
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
 
 volumes:
   public_certificates:

@@ -46,6 +46,7 @@ providers:
   docker:
     exposedByDefault: false
     swarmMode: true
+    network: public
     defaultRule: "HOST(`{{ normalize .Name }}.services.tvduc95.ovh`))"
 
   file:
