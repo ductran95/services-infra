@@ -14,8 +14,7 @@ git config --global --add safe.directory '*'
 cd /
 sudo git clone https://github.com/ductran95/services-infra
 sudo chmod -R 777 /services-infra
-cd services-infra
-cd debian
+cd /services-infra/debian
 ./install.sh
 ```
 
