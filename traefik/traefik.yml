@@ -24,9 +24,9 @@ entryPoints:
       tls:
         certResolver: le
         # domains:
-        # - main: "services.tvduc95.ovh"
+        # - main: "service.tvduc95.ovh"
         #   sans:
-        #     - "*.services.tvduc95.ovh"
+        #     - "*.service.tvduc95.ovh"
 
 ################################################################
 # Traefik logs configuration
@@ -52,7 +52,7 @@ providers:
     exposedByDefault: false
     swarmMode: true
     network: public
-    defaultRule: "HOST(`{{ normalize .Name }}.services.tvduc95.ovh`))"
+    defaultRule: "HOST(`{{ normalize .Name }}.service.tvduc95.ovh`))"
 
   file:
     filename: /etc/traefik/dynamic_config.yml

@@ -7,7 +7,7 @@ http:
   routers:
     traefik-public:
       entrypoints: https
-      rule: Host(`traefik.services.tvduc95.ovh`)
+      rule: Host(`traefik.service.tvduc95.ovh`)
       service: api@internal
       middlewares: 
         - admin-auth
@@ -20,4 +20,4 @@ http:
     admin-auth:
       basicAuth:
         users:
-          - "admin:$2y$05$lyY5mTijBUzGbiicVMWDWOmqEZej2GAE2cf481RQqDhVBMDm2ZwKq"
+          - "admin:$2y$05$qAEgniBwI7aQOgdR2Yv1buDTVY5rx6YvgHNfeUOk5hrydnBciL0uO"
