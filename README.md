@@ -42,12 +42,14 @@ docker swarm join --token SWMTKN-1-4v9ak3bbqd3z9tbd4lkagte5n56iwz5wnxpk3agqqg2uj
 ### On manager node:
 - Install Traefik:
 ```bash
+ docker network create -d overlay traefik_network
 cd /services-infra/traefik
 docker stack deploy --compose-file docker-compose.yml reverse-proxy
 ```
 
 - Install Portainer:
 ```bash
+docker network create -d overlay agent_network
 cd /services-infra/portainer
 docker stack deploy --compose-file docker-compose.yml portainer
 ```
