@@ -3,6 +3,8 @@ version: '3'
 services:
   api:
     image: tvduc95/testapi:latest
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
     networks:
       - public
       - default
