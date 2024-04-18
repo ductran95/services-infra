@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  api:
+    image: tvduc95/testapi:latest
+    networks:
+      - public
+      - default
+    deploy:
+      mode: global
+      placement:
+        constraints: [node.role == worker]
+      labels:
+        - traefik.enable=true
+        - traefik.docker.lbswarm=true
+        - traefik.http.routers.testapi.rule=Host(`testapi.service.tvduc95.ovh`)
+        - traefik.http.routers.testapi.entrypoints=https
+        - traefik.http.routers.testapi.service=testapi
+        - traefik.http.services.testapi.loadbalancer.server.port=8080
+
+networks:
+  public:
+    external: true
+  default:
