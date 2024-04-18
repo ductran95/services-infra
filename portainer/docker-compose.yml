@@ -34,10 +34,6 @@ services:
         - traefik.http.routers.portainer.rule=Host(`portainer.services.tvduc95.ovh`)
         - traefik.http.routers.portainer.entrypoints=https
         - traefik.http.routers.portainer.service=portainer
-        - traefik.http.routers.portainer-http.rule=Host(`portainer.services.tvduc95.ovh`)
-        - traefik.http.routers.portainer-http.entrypoints=http
-        - traefik.http.routers.portainer-http.service=portainer
-        - traefik.http.routers.portainer-http.middlewares=https-redirect
         - traefik.http.services.portainer.loadbalancer.server.port=9000
 
 volumes:
