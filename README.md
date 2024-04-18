@@ -18,6 +18,8 @@ cd /services-infra/debian
 ./install.sh
 ```
 
+- Note: use 'git reset --hard' to clear all git changes
+
 - Reboot
 
 ## 2. Init Docker Swarm
