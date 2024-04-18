@@ -27,8 +27,8 @@ entryPoints:
 # Traefik logs configuration
 ################################################################
 
-log:
-  level: DEBUG
+log: {}
+  # level: DEBUG
 accessLog: {}
 
 ################################################################
@@ -61,7 +61,7 @@ certificatesResolvers:
       email: tvduc95@gmail.com
       storage: /certificates/acme.json
       tlsChallenge: {}
-      caServer: https://acme-staging-v02.api.letsencrypt.org/directory
+      # caServer: https://acme-staging-v02.api.letsencrypt.org/directory
       # dnsChallenge:
       #   provider: cloudflare
 
