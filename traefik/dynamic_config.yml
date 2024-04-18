@@ -17,8 +17,6 @@ http:
       service: api@internal
       middlewares: 
         - admin-auth
-      tls:
-        certResolver: le
 
 ################################################################
 # Middlewares configuration
