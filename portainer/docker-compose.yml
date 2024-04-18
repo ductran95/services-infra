@@ -22,8 +22,8 @@ services:
       - public
       - agent_network
     ports:
+      - 8000:8000
       - 9000:9000
-      - 9443:9443
     deploy:
       mode: replicated
       replicas: 1
