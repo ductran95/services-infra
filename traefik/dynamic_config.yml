@@ -11,6 +11,11 @@ http:
       service: api@internal
       middlewares: 
         - admin-auth
+    http-catchall:
+      entrypoints: http
+      rule: HostRegexp(`{host:.+}`)
+      middlewares: 
+        - https-redirect
 
 ################################################################
 # Middlewares configuration
@@ -21,3 +26,6 @@ http:
       basicAuth:
         users:
           - "admin:$2y$05$lyY5mTijBUzGbiicVMWDWOmqEZej2GAE2cf481RQqDhVBMDm2ZwKq"
+    https-redirect:
+      redirectscheme:
+        scheme: https
