@@ -23,6 +23,17 @@ cd /services-infra/debian
 - Reboot
 
 ## 2. Init Docker Swarm
+
+- Fix docker
+```bash
+cat cat /etc/resolv.conf
+sudo nano /etc/docker/daemon.json
+{
+    "dns": ["10.0.0.2", "8.8.8.8"]
+}
+
+```
+
 ```bash
 ip addr
 docker swarm init --advertise-addr <MANAGER-IP>
