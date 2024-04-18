@@ -14,6 +14,7 @@ services:
     labels:
         - traefik.enable=true
         - traefik.docker.network=traefik_network
+        - traefik.docker.lbswarm=true
         - traefik.http.services.traefik-public.loadbalancer.server.port=8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
