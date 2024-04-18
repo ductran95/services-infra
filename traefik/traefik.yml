@@ -19,9 +19,6 @@ entryPoints:
       tls:
         certResolver: le
         domains:
-        - main: "tvduc95.ovh"
-          sans:
-            - "*.tvduc95.ovh"
         - main: "services.tvduc95.ovh"
           sans:
             - "*.services.tvduc95.ovh"
