@@ -41,7 +41,7 @@ providers:
   docker:
     exposedByDefault: false
     swarmMode: true
-    defaultRule: "HOST(`services.tvduc95.ovh`)) && Path(`/{{ normalize .Name }}`)"
+    defaultRule: "HOST(`{{ normalize .Name }}.services.tvduc95.ovh`))"
 
   file:
     filename: /etc/traefik/dynamic_config.yml

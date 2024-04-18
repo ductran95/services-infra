@@ -8,6 +8,12 @@ services:
       - /var/lib/docker/volumes:/var/lib/docker/volumes
     networks:
       - agent_network
+    environment:
+      # REQUIRED: Should be equal to the service name prefixed by "tasks." when
+      # deployed inside an overlay network
+      - AGENT_CLUSTER_ADDR=tasks.agent
+      # AGENT_PORT: 9001
+      # LOG_LEVEL: debug
     deploy:
       mode: global
       placement:
@@ -17,10 +23,10 @@ services:
     image: portainer/portainer-ce:latest
     command: -H tcp://tasks.agent:9001 --tlsskipverify
     volumes:
-      - portainer_data:/data
+      - data:/data
     networks:
+      - public
       - agent_network
-      - traefik_network
     deploy:
       mode: replicated
       replicas: 1
@@ -39,10 +45,10 @@ services:
         - traefik.http.services.portaineredge.loadbalancer.server.port=8000
 
 volumes:
-  portainer_data:
+  data:
 
 networks:
-  agent_network:
+  public:
     external: true
-  traefik_network:
+  agent_network:
     external: true
