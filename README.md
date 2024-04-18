@@ -54,10 +54,10 @@ cd /services-infra/portainer
 docker stack deploy --compose-file docker-compose.yml portainer
 ```
 
-- Install Sentry:
+- Install APM:
 ```bash
-cd /services-infra/sentry
-docker stack deploy --compose-file docker-compose.yml open-telemetry
+cd /services-infra/apm
+docker stack deploy --compose-file docker-compose.yml apm
 ```
 
 - Install OTEL Collector:

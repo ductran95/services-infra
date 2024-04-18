@@ -1,102 +1,50 @@
 receivers:
   hostmetrics:
-    root_path: /hostfs
     collection_interval: 10s
     scrapers:
       cpu:
-      disk: 
+      disk:
       filesystem:
-        exclude_mount_points:
-          mount_points: ["/boot/efi", "/mnt/media", "/snap/*", "/run/*"]
-          match_type: regexp
-      load: 
-      memory: 
-      network: 
-      paging:
+      load:
+      memory:
+      network:
+      process:
       processes:
+      paging:
   docker_stats:
+    collection_interval: 10s
     endpoint: unix:///var/run/docker.sock
   otlp:
     protocols:
       grpc:
         endpoint: :4317
-        auth:
-          authenticator: basicauth/server
+      http:
+        endpoint: :4318
         # tls:
         #   cert_file: /certs/server.crt
         #   key_file: /certs/server.key
-      http:
-        endpoint: :4318
-        auth:
-          authenticator: basicauth/server
-        tls:
-          cert_file: /certs/server.crt
-          key_file: /certs/server.key
 
 processors:
   batch:
+    metadata_keys:
+    - uptrace
 
   resourcedetection:
-    detectors: [env, system]
-    attribute_source: resource
-    from_attribute: service.instance.id
-    table:
-    # Shopee Management
-    - value: shopee-management-api-development
-      exporters:
-      - otlp/shopee-management-tempo
-      - loki/shopee-management
-      - prometheusremotewrite/shopee-management
-      - otlp/shopee-management-uptrace
-      - otlphttp/openobserve
-    - value: shopee-management-api-staging
-      exporters:
-      - otlp/shopee-management-tempo
-      - loki/shopee-management
-      - prometheusremotewrite/shopee-management
-      - otlp/shopee-management-uptrace
-      - otlp/shopee-management-uptrace-cloud
-      - otlphttp/openobserve
-    - value: shopee-management-api-production
-      exporters:
-      - otlp/shopee-management-tempo
-      - loki/shopee-management
-      - prometheusremotewrite/shopee-management
-      - otlp/shopee-management-uptrace
-      - otlp/shopee-management-uptrace-cloud
-      - otlphttp/openobserve
-    - value: shopee-management-function-development
-      exporters:
-      - otlp/shopee-management-tempo
-      - loki/shopee-management
-      - prometheusremotewrite/shopee-management
-      - otlp/shopee-management-uptrace
-      - otlphttp/openobserve
-    - value: shopee-management-function-staging
-      exporters:
-      - otlp/shopee-management-tempo
-      - loki/shopee-management
-      - prometheusremotewrite/shopee-management
-      - otlp/shopee-management-uptrace
-      - otlp/shopee-management-uptrace-cloud
-      - otlphttp/openobserve
-    - value: shopee-management-function-production
-      exporters:
-      - otlp/shopee-management-tempo
-      - loki/shopee-management
-      - prometheusremotewrite/shopee-management
-      - otlp/shopee-management-uptrace
-      - otlp/shopee-management-uptrace-cloud
-      - otlphttp/openobserve
+    detectors: [env, system, ec2]
 
 exporters:
-  logging:
-    verbosity: detailed
+  otlp/host-uptrace:
+    endpoint: uptrace.service.tvduc95.ovh:14317
+    tls:
+      insecure: true
+    headers: { 'uptrace-dsn': 'http://srNWDSH8FG3Gur4hb4eU@localhost:14317/2' }
 
-  sentry:
-    dsn: https://key@host/path/42
-    environment: prod
-    insecure_skip_verify: true
+  otlp/uptrace:
+    endpoint: uptrace.service.tvduc95.ovh:14317
+    tls:
+      insecure: true
+    auth:
+      authenticator: headers_setter
 
 extensions:
   health_check:
@@ -107,12 +55,14 @@ extensions:
   zpages:
     endpoint: :55679
 
-  basicauth/server:
-    htpasswd:
-      inline: |
-        test:abcde12345-
+  headers_setter:
+    headers:
+      - action: insert
+        key: uptrace-dsn
+        from_context: uptrace-dsn
+
 service:
-  extensions: [basicauth/server, pprof, zpages, health_check]
+  extensions: [pprof, zpages, health_check, headers_setter]
 
   pipelines:
     traces:
@@ -122,7 +72,7 @@ service:
         - batch
         - routing
       exporters:
-        - sentry
+        - otlp/uptrace
 
     metrics:
       receivers:
@@ -131,8 +81,7 @@ service:
         - batch
         - routing
       exporters:
-        # - logging
-        - sentry
+        - otlp/uptrace
 
     metrics/host:
       receivers:
@@ -142,7 +91,7 @@ service:
         - batch
         - resourcedetection
       exporters:
-        - sentry
+        - otlp/host-uptrace
 
     logs:
       receivers:
@@ -151,8 +100,4 @@ service:
         - batch
         - routing
       exporters:
-        - sentry
-
-  # telemetry:
-  #   logs:
-  #     level: "debug"
+        - otlp/uptrace

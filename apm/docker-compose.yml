@@ -1,0 +1,82 @@
+version: '3'
+
+services:
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:latest
+    container_name: clickhouse
+    restart: unless-stopped
+    deploy:
+      placement:
+        constraints: 
+          - node.role == manager
+    environment:
+      CLICKHOUSE_DB: uptrace
+    healthcheck:
+      test: ['CMD', 'wget', '--spider', '-q', 'localhost:8123/ping']
+      interval: 1s
+      timeout: 1s
+      retries: 30
+    volumes:
+      - ch_data:/var/lib/clickhouse
+    networks:
+      - default
+
+  postgres:
+    image: postgres:latest
+    restart: unless-stopped
+    deploy:
+      placement:
+        constraints: 
+          - node.role == manager
+    environment:
+      POSTGRES_USER: uptrace
+      POSTGRES_PASSWORD: uptrace
+      POSTGRES_DB: uptrace
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U uptrace -d uptrace']
+      interval: 1s
+      timeout: 1s
+      retries: 30
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - default
+
+  uptrace:
+    image: 'uptrace/uptrace:latest'
+    container_name: uptrace
+    restart: unless-stopped
+    deploy:
+      placement:
+        constraints: 
+          - node.role == manager
+      labels:
+        - traefik.enable=true
+        - traefik.docker.lbswarm=true
+        - traefik.http.routers.uptrace.rule=Host(`uptrace.service.tvduc95.ovh`)
+        - traefik.http.routers.uptrace.entrypoints=https
+        - traefik.http.routers.uptrace.service=portainer
+        - traefik.http.services.uptrace.loadbalancer.server.port=14318
+    volumes:
+      - uptrace_data:/var/lib/uptrace
+      - /services-infra/apm/uptrace.yml:/etc/uptrace/uptrace.yml
+    ports:
+      - '14317:14317'
+      - '14318:14318'
+    depends_on:
+      clickhouse:
+        condition: service_healthy
+    networks:
+      - default
+      - public
+
+volumes:
+  uptrace_data:
+  ch_data:
+  postgres_data:
+
+networks:
+  default:
+  public:
+    external: true
