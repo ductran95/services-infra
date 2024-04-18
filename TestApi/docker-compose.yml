@@ -1,0 +1,6 @@
+﻿services:
+  testapi:
+    image: testapi
+    build:
+      context: .
+      dockerfile: TestApi/Dockerfile
