@@ -30,7 +30,7 @@ entryPoints:
 # Traefik logs configuration
 ################################################################
 
-log: {}
+log:
   level: DEBUG
 # accessLog: {}
 
