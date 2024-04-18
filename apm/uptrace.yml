@@ -87,7 +87,7 @@ projects:
     # Group funcs spans by service.name attribute.
     group_funcs_by_service: true
 
-    - id: 4
+  - id: 4
     name: Test API
     # Token grants write access to the project. Keep a secret.
     token: fFDp5PKUkSUVnLKW4Qz7
@@ -291,7 +291,7 @@ smtp_mailer:
 logs:
   # Zap minimal logging level.
   # Valid values: DEBUG, INFO, WARN, ERROR, DPANIC, PANIC, FATAL.
-  level: DEBUG
+  level: INFO
 
 # Secret key that is used to sign JWT tokens etc.
 secret_key: 102c1a557c314fc28198acd017960843
