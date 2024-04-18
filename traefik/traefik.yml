@@ -12,6 +12,10 @@ global:
 entryPoints:
   http:
     address: :80
+    redirections:
+        entryPoint:
+          to: https
+          permanent: true
 
   https:
     address: :443
