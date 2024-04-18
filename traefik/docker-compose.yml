@@ -21,10 +21,6 @@ services:
       - public_certificates:/certificates
       - /services-infra/traefik/traefik.yml:/etc/traefik/traefik.yml
       - /services-infra/traefik/dynamic_config.yml:/etc/traefik/dynamic_config.yml
-    environment:
-      - CF_API_EMAIL=tv.duc95@gmail.com
-      - CF_DNS_API_TOKEN=TsrCMKBseUCNpkj9TpNi2gy48Bd4tLQ5AyDcuvYP
-      - CF_ZONE_API_TOKEN=MwIi7Pn5NtG_3zdqZhXnIEud7f04HN21NT9XmY6j
     networks:
       - public
     dns:

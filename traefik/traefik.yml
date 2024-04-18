@@ -18,18 +18,18 @@ entryPoints:
     http:
       tls:
         certResolver: le
-        domains:
-        - main: "services.tvduc95.ovh"
-          sans:
-            - "*.services.tvduc95.ovh"
+        # domains:
+        # - main: "services.tvduc95.ovh"
+        #   sans:
+        #     - "*.services.tvduc95.ovh"
 
 ################################################################
 # Traefik logs configuration
 ################################################################
 
-log:
-  level: DEBUG
-# accessLog: {}
+log: {}
+  # level: DEBUG
+accessLog: {}
 
 ################################################################
 # API and dashboard configuration
@@ -60,7 +60,8 @@ certificatesResolvers:
     acme:
       email: tvduc95@gmail.com
       storage: /certificates/acme.json
+      tlsChallenge: {}
       # caServer: https://acme-staging-v02.api.letsencrypt.org/directory
-      dnsChallenge:
-        provider: cloudflare
+      # dnsChallenge:
+      #   provider: cloudflare
 
