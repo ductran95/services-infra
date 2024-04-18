@@ -63,8 +63,8 @@ services:
       - '14317:14317'
       - '14318:14318'
     depends_on:
-      - clickhouse
       - postgres
+      - clickhouse
     networks:
       - default
       - public
