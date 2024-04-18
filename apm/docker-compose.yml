@@ -56,7 +56,7 @@ services:
         - traefik.docker.lbswarm=true
         - traefik.http.routers.uptrace.rule=Host(`uptrace.service.tvduc95.ovh`)
         - traefik.http.routers.uptrace.entrypoints=https
-        - traefik.http.routers.uptrace.service=portainer
+        - traefik.http.routers.uptrace.service=uptrace
         - traefik.http.services.uptrace.loadbalancer.server.port=14318
     volumes:
       - uptrace_data:/var/lib/uptrace
