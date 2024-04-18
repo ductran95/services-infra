@@ -22,7 +22,6 @@ services:
       - public
       - agent_network
     ports:
-      - 8000:8000
       - 9000:9000
     deploy:
       mode: replicated
@@ -34,12 +33,11 @@ services:
         - traefik.http.routers.portainer.rule=Host(`portainer.services.tvduc95.ovh`)
         - traefik.http.routers.portainer.entrypoints=https
         - traefik.http.routers.portainer.service=portainer
+        - traefik.http.routers.portainer-http.rule=Host(`portainer.services.tvduc95.ovh`)
+        - traefik.http.routers.portainer-http.entrypoints=http
+        - traefik.http.routers.portainer-http.service=portainer
+        - traefik.http.routers.portainer-http.middlewares=https-redirect
         - traefik.http.services.portainer.loadbalancer.server.port=9000
-        # Edge
-        - traefik.http.routers.portaineredge.rule=Host(`portaineredge.services.tvduc95.ovh`)
-        - traefik.http.routers.portaineredge.entrypoints=https
-        - traefik.http.routers.portaineredge.service=portaineredge
-        - traefik.http.services.portaineredge.loadbalancer.server.port=8000
 
 volumes:
   data:
