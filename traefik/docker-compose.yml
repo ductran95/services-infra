@@ -13,7 +13,7 @@ services:
           - node.role == manager
     labels:
         - traefik.enable=true
-        # - traefik.docker.lbswarm=true
+        - traefik.docker.lbswarm=true
         - traefik.http.services.traefik-public.loadbalancer.server.port=8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
