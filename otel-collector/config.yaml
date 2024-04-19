@@ -40,11 +40,17 @@ processors:
     detectors: [env, system, ec2]
 
 exporters:
-  otlp/host-uptrace:
+  otlp/uptrace-host:
     endpoint: uptrace.service.tvduc95.ovh:14317
     tls:
       insecure: true
     headers: { 'uptrace-dsn': 'http://srNWDSH8FG3Gur4hb4eU@uptrace.service.tvduc95.ovh:14318?grpc=14317' }
+
+  otlp/uptrace-traefik:
+    endpoint: uptrace.service.tvduc95.ovh:14317
+    tls:
+      insecure: true
+    headers: { 'uptrace-dsn': 'http://eHHpqm844pc8PSH33bwH@uptrace.service.tvduc95.ovh:14318?grpc=14317' }
 
   otlp/uptrace:
     endpoint: uptrace.service.tvduc95.ovh:14317
@@ -90,7 +96,15 @@ service:
         - batch
         - resourcedetection
       exporters:
-        - otlp/host-uptrace
+        - otlp/uptrace-host
+
+    metrics/prometheus:
+      receivers:
+        - prometheus
+      processors:
+        - batch
+      exporters:
+        - otlp/uptrace-traefik
 
     logs:
       receivers:
