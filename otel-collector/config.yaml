@@ -64,7 +64,6 @@ service:
         - otlp
       processors:
         - batch
-        - routing
       exporters:
         - otlp/uptrace
 
@@ -73,7 +72,6 @@ service:
         - otlp
       processors:
         - batch
-        - routing
       exporters:
         - otlp/uptrace
 
@@ -92,6 +90,5 @@ service:
         - otlp
       processors:
         - batch
-        - routing
       exporters:
         - otlp/uptrace
