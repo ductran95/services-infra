@@ -66,6 +66,7 @@ providers:
 
   file:
     filename: /etc/traefik/dynamic_config.yml
+    watch: true
 
 ################################################################
 # Certificate configuration
