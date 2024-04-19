@@ -8,7 +8,7 @@ receivers:
       load:
       memory:
       network:
-      process:
+      # process:
       processes:
       paging:
   docker_stats:
