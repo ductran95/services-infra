@@ -1,5 +1,5 @@
 ﻿{
   "LogDirectory": ".",
   "FileSize": 32768,
-  "LogLevel": "Information"
+  "LogLevel": "Warning"
 }
