@@ -11,6 +11,8 @@ services:
     networks:
       - public
       - default
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     deploy:
       mode: replicated
       replicas: 2
