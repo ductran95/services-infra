@@ -1,9 +1,49 @@
+using OpenTelemetry.Logs;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
+using static TestApi.ResourceSemanticConventions;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Logging.AddOpenTelemetry(options =>
+{
+    options
+        .SetResourceBuilder(
+            ResourceBuilder.CreateDefault()
+                .AddService("test-api")
+                .AddAttributes(new Dictionary<string, object>
+                {
+                    {
+                        AttributeDeploymentEnvironment,
+                        builder.Environment.EnvironmentName
+                    },
+                    { AttributeHostName, Environment.MachineName }
+                }))
+        .AddOtlpExporter();
+});
+builder.Services.AddOpenTelemetry()
+    .ConfigureResource(resource => resource
+        .AddService("test-api")
+        .AddAttributes(new Dictionary<string, object>
+        {
+            {
+                AttributeDeploymentEnvironment,
+                builder.Environment.EnvironmentName
+            },
+            { AttributeHostName, Environment.MachineName }
+        }))
+    .WithTracing(tracing => tracing
+        .AddAspNetCoreInstrumentation()
+        .AddOtlpExporter())
+    .WithMetrics(metrics => metrics
+        .AddAspNetCoreInstrumentation()
+        .AddOtlpExporter());
 
 var app = builder.Build();
 
