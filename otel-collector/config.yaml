@@ -37,7 +37,7 @@ exporters:
     endpoint: uptrace.service.tvduc95.ovh:14317
     tls:
       insecure: true
-    headers: { 'uptrace-dsn': 'http://srNWDSH8FG3Gur4hb4eU@uptrace.service.tvduc95.ovh:14317/2' }
+    headers: { 'uptrace-dsn': 'http://srNWDSH8FG3Gur4hb4eU@uptrace.service.tvduc95.ovh:14318?grpc=14317' }
 
   otlp/uptrace:
     endpoint: uptrace.service.tvduc95.ovh:14317
@@ -49,12 +49,6 @@ exporters:
 extensions:
   health_check:
 
-  pprof:
-    endpoint: :1888
-
-  zpages:
-    endpoint: :55679
-
   headers_setter:
     headers:
       - action: insert
@@ -62,7 +56,7 @@ extensions:
         from_context: uptrace-dsn
 
 service:
-  extensions: [pprof, zpages, health_check, headers_setter]
+  extensions: [health_check, headers_setter]
 
   pipelines:
     traces:
