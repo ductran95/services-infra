@@ -5,7 +5,7 @@ services:
     image: tvduc95/testapi:latest
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - OTEL_EXPORTER_OTLP_ENDPOINT=host.docker.internal:4317
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://host.docker.internal:4317
       - OTEL_EXPORTER_OTLP_HEADERS=uptrace-dsn=http://fFDp5PKUkSUVnLKW4Qz7@uptrace.service.tvduc95.ovh:14318?grpc=14317
       - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
     networks:
@@ -19,7 +19,7 @@ services:
           - node.role == worker
       labels:
         - traefik.enable=true
-        - traefik.docker.lbswarm=true
+        # - traefik.docker.lbswarm=true
         - traefik.http.routers.testapi.rule=Host(`testapi.service.tvduc95.ovh`)
         - traefik.http.routers.testapi.entrypoints=https
         - traefik.http.routers.testapi.service=testapi
