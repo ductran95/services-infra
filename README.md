@@ -78,8 +78,8 @@ sudo apt-get update
 wget https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v0.98.0/otelcol-contrib_0.98.0_linux_amd64.deb
 sudo dpkg -i otelcol-contrib_0.98.0_linux_amd64.deb
 cd /services-infra/otel-collector
-sudo ln -sf /services-infra/otel-collector/config.yaml /etc/otelcol/config.yaml
-sudo systemctl restart otelcol
+sudo ln -sf /services-infra/otel-collector/config.yaml /etc/otelcol-contrib/config.yaml
+sudo systemctl restart otelcol-contrib
 ```
 
 ## 4. Install services
