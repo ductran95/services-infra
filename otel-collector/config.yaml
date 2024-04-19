@@ -23,6 +23,13 @@ receivers:
         # tls:
         #   cert_file: /certs/server.crt
         #   key_file: /certs/server.key
+  prometheus:
+    config:
+      scrape_configs:
+        - job_name: 'traefik'
+          scrape_interval: 5s
+          static_configs:
+            - targets: ['0.0.0.0:8082']
 
 processors:
   batch:
