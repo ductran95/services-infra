@@ -30,7 +30,7 @@ processors:
     - uptrace
 
   resourcedetection:
-    detectors: [env, system, ec2]
+    detectors: [env, ec2, system]
 
 exporters:
   otlp/uptrace-host:
