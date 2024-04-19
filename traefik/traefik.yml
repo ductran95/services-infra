@@ -28,6 +28,10 @@ entryPoints:
         #   sans:
         #     - "*.service.tvduc95.ovh"
 
+  metrics:
+    address: :8082
+    
+
 ################################################################
 # Traefik logs configuration
 ################################################################
@@ -35,16 +39,24 @@ entryPoints:
 log: {}
   # level: DEBUG
 # accessLog: {}
+
 metrics:
-  otlp:
+  prometheus:
+    entryPoint: metrics
     addEntryPointsLabels: true
     addRoutersLabels: true
     addServicesLabels: true
-    grpc:
-      endpoint: host.docker.internal:4317
-      insecure: true
-      headers:
-        UPTRACE_DSN: http://eHHpqm844pc8PSH33bwH@uptrace.service.tvduc95.ovh:14318?grpc=14317
+
+# metrics:
+#   otlp:
+#     addEntryPointsLabels: true
+#     addRoutersLabels: true
+#     addServicesLabels: true
+#     grpc:
+#       endpoint: host.docker.internal:4317
+#       insecure: true
+#       headers:
+#         UPTRACE_DSN: http://eHHpqm844pc8PSH33bwH@uptrace.service.tvduc95.ovh:14318?grpc=14317
 
 ################################################################
 # API and dashboard configuration
