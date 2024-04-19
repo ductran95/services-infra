@@ -1,0 +1,94 @@
+receivers:
+  hostmetrics:
+    collection_interval: 10s
+    scrapers:
+      cpu:
+      disk:
+      filesystem:
+      load:
+      memory:
+      network:
+      # process:
+      processes:
+      paging:
+  docker_stats:
+    collection_interval: 10s
+    endpoint: unix:///var/run/docker.sock
+  otlp:
+    protocols:
+      grpc:
+        endpoint: :4317
+      # http:
+      #   endpoint: :4318
+        # tls:
+        #   cert_file: /certs/server.crt
+        #   key_file: /certs/server.key
+
+processors:
+  batch:
+    metadata_keys:
+    - uptrace
+
+  resourcedetection:
+    detectors: [env, system, ec2]
+
+exporters:
+  otlp/uptrace-host:
+    endpoint: uptrace.service.tvduc95.ovh:14317
+    tls:
+      insecure: true
+    headers: { 'uptrace-dsn': 'http://srNWDSH8FG3Gur4hb4eU@uptrace.service.tvduc95.ovh:14318?grpc=14317' }
+
+  otlp/uptrace:
+    endpoint: uptrace.service.tvduc95.ovh:14317
+    tls:
+      insecure: true
+    auth:
+      authenticator: headers_setter
+
+extensions:
+  health_check:
+
+  headers_setter:
+    headers:
+      - action: insert
+        key: uptrace-dsn
+        from_context: uptrace-dsn
+
+service:
+  extensions: [health_check, headers_setter]
+
+  pipelines:
+    traces:
+      receivers:
+        - otlp
+      processors:
+        - batch
+      exporters:
+        - otlp/uptrace
+
+    metrics:
+      receivers:
+        - otlp
+      processors:
+        - batch
+      exporters:
+        - otlp/uptrace
+
+    metrics/host:
+      receivers:
+        - hostmetrics
+        - docker_stats
+      processors:
+        - batch
+        - resourcedetection
+      exporters:
+        - otlp/uptrace-host
+
+    logs:
+      receivers:
+        - otlp
+      processors:
+        - batch
+      exporters:
+        - otlp/uptrace
