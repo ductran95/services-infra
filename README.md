@@ -84,6 +84,7 @@ sudo nano /usr/lib/systemd/system/otelcol-contrib.service
 Change user and group to root
 ```
 ```bash
+sudo systemctl daemon-reload
 sudo systemctl restart otelcol-contrib
 ```
 
