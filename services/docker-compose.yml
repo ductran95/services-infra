@@ -5,6 +5,9 @@ services:
     image: tvduc95/testapi:latest
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - OTEL_EXPORTER_OTLP_ENDPOINT=host.docker.internal:4317
+      - OTEL_EXPORTER_OTLP_HEADERS=uptrace-dsn=http://fFDp5PKUkSUVnLKW4Qz7@uptrace.service.tvduc95.ovh:14318?grpc=14317
+      - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
     networks:
       - public
       - default
