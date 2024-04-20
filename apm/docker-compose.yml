@@ -51,7 +51,6 @@ services:
           - node.role == manager
       labels:
         - traefik.enable=true
-        - traefik.docker.lbswarm=true
         - traefik.http.routers.uptrace.rule=Host(`uptrace.service.tvduc95.ovh`)
         - traefik.http.routers.uptrace.entrypoints=https
         - traefik.http.routers.uptrace.service=uptrace
