@@ -8,7 +8,7 @@ export const options = {
         http_req_duration: ['p(95)<200'], // 95% of requests should be below 200ms
     },
     // Smoke test
-    vus: 100, // Key for Smoke test. Keep it at 2, 3, max 5 VUs
+    vus: 500, // Key for Smoke test. Keep it at 2, 3, max 5 VUs
     duration: '1m', // This can be shorter or just a few iterations
     // Load test
     // stages: [

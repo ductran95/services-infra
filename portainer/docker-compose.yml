@@ -10,6 +10,8 @@ services:
       - agent_network
     deploy:
       mode: global
+      restart_policy:
+        condition: on-failure
       placement:
         constraints: [node.platform.os == linux]
 
@@ -28,6 +30,8 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+      restart_policy:
+        condition: on-failure
       placement:
         constraints: [node.role == manager]
       labels:

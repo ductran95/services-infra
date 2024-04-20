@@ -5,6 +5,8 @@ services:
   clickhouse:
     image: clickhouse/clickhouse-server:latest
     deploy:
+      restart_policy:
+        condition: on-failure
       placement:
         constraints: 
           - node.role == manager
@@ -23,6 +25,8 @@ services:
   postgres:
     image: postgres:latest
     deploy:
+      restart_policy:
+        condition: on-failure
       placement:
         constraints: 
           - node.role == manager
@@ -43,6 +47,8 @@ services:
   uptrace:
     image: 'uptrace/uptrace:latest'
     deploy:
+      restart_policy:
+        condition: on-failure
       placement:
         constraints: 
           - node.role == manager

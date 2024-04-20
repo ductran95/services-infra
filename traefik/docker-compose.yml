@@ -8,6 +8,8 @@ services:
       - 80:80
       - 443:443
     deploy:
+      restart_policy:
+        condition: on-failure
       placement:
         constraints: 
           - node.role == manager
