@@ -255,7 +255,7 @@ metrics:
 ## uptrace-go client configuration.
 ## Uptrace sends internal telemetry here. Defaults to listen.grpc.addr.
 ##
-uptrace_go:
+# uptrace_go:
   # dsn: http://tqCMh435T82C7TSCaU8A@localhost:14317/1
   # tls:
   #   insecure_skip_verify: true
