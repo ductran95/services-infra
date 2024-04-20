@@ -20,6 +20,9 @@
       <Content Include="..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>
+      <Content Update="OTEL_DIAGNOSTICS.json">
+        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
 </Project>

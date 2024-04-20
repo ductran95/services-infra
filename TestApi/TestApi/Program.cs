@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
@@ -47,6 +48,27 @@ builder.Services.AddOpenTelemetry()
         .AddOtlpExporter());
 
 var app = builder.Build();
+
+app.Use(async (HttpContext ctx, RequestDelegate next) =>
+{
+    try
+    {
+        await next(ctx);
+    }
+    catch (Exception exception)
+    {
+        var logger = ctx.RequestServices.GetRequiredService<ILogger<Program>>();
+        logger.LogError(exception, "Error handling request {Method} {Path}", ctx.Request.Method, ctx.Request.Path);
+        Activity.Current?.RecordException(exception);
+        Activity.Current?.SetStatus(Status.Error);
+        ctx.Response.StatusCode = 500;
+        await ctx.Response.WriteAsJsonAsync(new
+        {
+            ErrorCode = exception.GetType().Name,
+            ErrorMessage = exception.Message
+        });
+    }
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
