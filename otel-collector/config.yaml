@@ -24,13 +24,6 @@ receivers:
         # tls:
         #   cert_file: /certs/server.crt
         #   key_file: /certs/server.key
-  # prometheus:
-  #   config:
-  #     scrape_configs:
-  #       - job_name: 'traefik'
-  #         scrape_interval: 5s
-  #         static_configs:
-  #           - targets: ['0.0.0.0:8082']
 
 processors:
   batch:
@@ -46,12 +39,6 @@ exporters:
     tls:
       insecure: true
     headers: { 'uptrace-dsn': 'http://srNWDSH8FG3Gur4hb4eU@uptrace.service.tvduc95.ovh:14318?grpc=14317' }
-
-  otlp/uptrace-traefik:
-    endpoint: uptrace.service.tvduc95.ovh:14317
-    tls:
-      insecure: true
-    headers: { 'uptrace-dsn': 'http://eHHpqm844pc8PSH33bwH@uptrace.service.tvduc95.ovh:14318?grpc=14317' }
 
   otlp/uptrace:
     endpoint: uptrace.service.tvduc95.ovh:14317
@@ -98,14 +85,6 @@ service:
         - resourcedetection
       exporters:
         - otlp/uptrace-host
-
-    # metrics/prometheus:
-    #   receivers:
-    #     - prometheus
-    #   processors:
-    #     - batch
-    #   exporters:
-    #     - otlp/uptrace-traefik
 
     logs:
       receivers:
