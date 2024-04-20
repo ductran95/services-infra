@@ -79,7 +79,6 @@ api: {}
 providers:
   # Enable Docker configuration backend
   swarm:
-    endpoint: "tcp://127.0.0.1:2377"
     exposedByDefault: false
     network: public
     defaultRule: "HOST(`{{ normalize .Name }}.service.tvduc95.ovh`))"
