@@ -56,7 +56,7 @@ metrics:
       endpoint: host.docker.internal:4317
       insecure: true
       headers:
-        UPTRACE_DSN: http://eHHpqm844pc8PSH33bwH@uptrace.service.tvduc95.ovh:14318?grpc=14317
+        uptrace-dsn: http://eHHpqm844pc8PSH33bwH@uptrace.service.tvduc95.ovh:14318?grpc=14317
 
 tracing:
   otlp:
@@ -64,7 +64,7 @@ tracing:
       endpoint: host.docker.internal:4317
       insecure: true
       headers:
-        UPTRACE_DSN: http://eHHpqm844pc8PSH33bwH@uptrace.service.tvduc95.ovh:14318?grpc=14317
+        uptrace-dsn: http://eHHpqm844pc8PSH33bwH@uptrace.service.tvduc95.ovh:14318?grpc=14317
 
 ################################################################
 # API and dashboard configuration
