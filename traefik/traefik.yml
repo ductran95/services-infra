@@ -28,8 +28,8 @@ entryPoints:
         #   sans:
         #     - "*.service.tvduc95.ovh"
 
-  metrics:
-    address: :8082
+  # metrics:
+  #   address: :8082
     
 
 ################################################################
@@ -40,23 +40,31 @@ log: {}
   # level: DEBUG
 # accessLog: {}
 
-metrics:
-  prometheus:
-    entryPoint: metrics
-    addEntryPointsLabels: true
-    addRoutersLabels: true
-    addServicesLabels: true
-
 # metrics:
-#   otlp:
+#   prometheus:
+#     entryPoint: metrics
 #     addEntryPointsLabels: true
 #     addRoutersLabels: true
 #     addServicesLabels: true
-#     grpc:
-#       endpoint: host.docker.internal:4317
-#       insecure: true
-#       headers:
-#         UPTRACE_DSN: http://eHHpqm844pc8PSH33bwH@uptrace.service.tvduc95.ovh:14318?grpc=14317
+
+metrics:
+  otlp:
+    addEntryPointsLabels: true
+    addRoutersLabels: true
+    addServicesLabels: true
+    grpc:
+      endpoint: host.docker.internal:4317
+      insecure: true
+      headers:
+        UPTRACE_DSN: http://eHHpqm844pc8PSH33bwH@uptrace.service.tvduc95.ovh:14318?grpc=14317
+
+tracing:
+  otlp:
+    grpc:
+      endpoint: host.docker.internal:4317
+      insecure: true
+      headers:
+        UPTRACE_DSN: http://eHHpqm844pc8PSH33bwH@uptrace.service.tvduc95.ovh:14318?grpc=14317
 
 ################################################################
 # API and dashboard configuration
@@ -70,9 +78,9 @@ api: {}
 
 providers:
   # Enable Docker configuration backend
-  docker:
+  swarm:
+    endpoint: "tcp://127.0.0.1:2377"
     exposedByDefault: false
-    swarmMode: true
     network: public
     defaultRule: "HOST(`{{ normalize .Name }}.service.tvduc95.ovh`))"
 

@@ -18,18 +18,19 @@ receivers:
     protocols:
       grpc:
         endpoint: :4317
+        include_metadata: true
       # http:
       #   endpoint: :4318
         # tls:
         #   cert_file: /certs/server.crt
         #   key_file: /certs/server.key
-  prometheus:
-    config:
-      scrape_configs:
-        - job_name: 'traefik'
-          scrape_interval: 5s
-          static_configs:
-            - targets: ['0.0.0.0:8082']
+  # prometheus:
+  #   config:
+  #     scrape_configs:
+  #       - job_name: 'traefik'
+  #         scrape_interval: 5s
+  #         static_configs:
+  #           - targets: ['0.0.0.0:8082']
 
 processors:
   batch:
@@ -98,13 +99,13 @@ service:
       exporters:
         - otlp/uptrace-host
 
-    metrics/prometheus:
-      receivers:
-        - prometheus
-      processors:
-        - batch
-      exporters:
-        - otlp/uptrace-traefik
+    # metrics/prometheus:
+    #   receivers:
+    #     - prometheus
+    #   processors:
+    #     - batch
+    #   exporters:
+    #     - otlp/uptrace-traefik
 
     logs:
       receivers:
