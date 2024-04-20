@@ -35,7 +35,7 @@ receivers:
 processors:
   batch:
     metadata_keys:
-    - uptrace
+    - uptrace-dsn
 
   resourcedetection:
     detectors: [env, ec2, system]

@@ -86,6 +86,7 @@ Change user and group to root
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl restart otelcol-contrib
+journalctl -u otelcol-contrib.service -n 50
 ```
 
 ## 4. Install services
